@@ -2,11 +2,11 @@
 # @Author: Xia Yunkai
 # @Date:   2024-08-17 22:59:51
 # @Last Modified by:   Xia Yunkai
-# @Last Modified time: 2024-08-17 23:46:28
+# @Last Modified time: 2024-08-18 20:09:52
 
 
 from document import Document
-from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import SimpleDocTemplate, Frame,PageTemplate
 from reportlab.lib import colors 
 from reportlab.lib.pagesizes import letter  # 页面的标志尺寸(8.5*inch, 11*inch)
 
@@ -65,7 +65,10 @@ if __name__ == '__main__':
     plt.savefig('image/plot.png')
     plt.close()
     content.append(Document.draw_image('image/plot.png'))
-    doc = SimpleDocTemplate('output/report.pdf', pagesize=letter)
-    # 注册页脚
-    
-    doc.build(content)
+    content.append(Document.draw_image('image/pika.png'))
+    doc = SimpleDocTemplate('output/report.pdf',  pagesize=letter,
+                            rightMargin=72, leftMargin=72,
+                            topMargin=72, bottomMargin=18,
+                            showBoundary=0)
+
+    doc.build(content,onFirstPage=Document.footer, onLaterPages=Document.footer)

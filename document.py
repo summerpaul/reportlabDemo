@@ -2,7 +2,7 @@
 # @Author: Xia Yunkai
 # @Date:   2024-08-17 21:26:21
 # @Last Modified by:   Xia Yunkai
-# @Last Modified time: 2024-08-17 23:50:11
+# @Last Modified time: 2024-08-18 20:08:48
 
 
 from reportlab.pdfbase import pdfmetrics   # 注册字体
@@ -150,11 +150,7 @@ class Document:
     # 设置页脚
     @staticmethod
     def footer(canvas, doc):
-        """
-        设置页脚--页码
-        :param canvas:Canvas类型  pdf画布
-        :param doc:doc类型   整个pdf文件
-        """  # 拿到标题样式
+         # 拿到标题样式
         style = getSampleStyleSheet()
         ct = style['Heading1']
         # 单独设置样式相关属性
@@ -167,7 +163,7 @@ class Document:
         pageNumber = ("%s" % canvas.getPageNumber())  # 获取当前的页码
         p = Paragraph(pageNumber, ct)
         p.wrap(1 * cm, 1 * cm)  # 申请一块1cm大小的空间，返回值是实际使用的空间
-        p.drawOn(canvas, 520, 50)  # 将页码放在指示坐标处
+        p.drawOn(canvas, 300, 50)  # 将页码放在指示坐标处
         canvas.restoreState()
         
     @staticmethod
@@ -180,9 +176,9 @@ class Document:
         pie.labels = items
         pie.data = data  
         pie.slices.strokeWidth = 0.5
-        
         drawing.add(pie)
         return drawing
+
 
 
 
