@@ -2,7 +2,7 @@
 # @Author: Xia Yunkai
 # @Date:   2024-08-17 21:26:21
 # @Last Modified by:   Xia Yunkai
-# @Last Modified time: 2024-08-18 20:08:48
+# @Last Modified time: 2024-08-18 21:27:29
 
 
 from reportlab.pdfbase import pdfmetrics   # 注册字体
@@ -87,7 +87,6 @@ class Document:
     
     @staticmethod
     def draw_table( data: list[list]):
-
         colWidths = 400 / len(data[0])
         dis_list = []
         for x in data:
@@ -103,7 +102,7 @@ class Document:
         return component_table
     
     @staticmethod
-    def draw_image(path):
+    def draw_image(path:str):
         img = Image(path)       # 读取指定路径下的图片
         # 最大宽400
         img.drawHeight = 600/img.drawWidth * img.drawHeight 
@@ -178,6 +177,15 @@ class Document:
         pie.slices.strokeWidth = 0.5
         drawing.add(pie)
         return drawing
+    
+    # 创建于构建pdf
+    @staticmethod
+    def create_doc(name:str,content:list):
+        doc = SimpleDocTemplate(name, pagesize=letter,
+                            rightMargin=50, leftMargin=50,
+                            topMargin=50, bottomMargin=50)
+        doc.build(content,onFirstPage=Document.footer, onLaterPages=Document.footer)
+      
 
 
 
